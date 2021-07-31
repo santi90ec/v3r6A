@@ -1,0 +1,30 @@
+body{
+    background: #E6E6E6;
+    
+}
+.container {
+    background: #fff;
+    box-shadow: 0 0 10px #000;
+    border-radius: 10px;
+   
+    padding: 5px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+.capas { 
+    border: 1px solid #000;
+    display: inline-block;
+    width: 300px;
+    height: 250px;
+    vertical-align:top ;
+    
+}
+table.form{
+    width: 297px;
+    display: block;
+    height: auto;
+}
+input.txtTable{
+    width: 138px;
+}

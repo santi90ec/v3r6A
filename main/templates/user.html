@@ -1,0 +1,91 @@
+
+{% extends 'masterpage.html' %}
+{% load static %}
+<!-- font awesome style -->
+
+
+{% block extend_head %}
+<link href="{% static 'main/css/userAddress.css' %}" rel="stylesheet" />
+<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+
+
+{% endblock %}
+
+{% block container %} 
+    <h1>Hola {{user.firstName}}</h1> 
+        <div id="datos" class="capas">
+            <form action="/home/addAddress" method="post">
+                {% csrf_token %}
+            <table class="form">
+                <tr>
+                    <td>
+                        <span>Latitud</span>
+                    </td>
+                    <td>
+                        <input type="text" name="id_lat" id="id_lat" class="txtTable" disabled>
+                        <input type="hidden" name="id_lat" id="id_lat">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Longitud</span>
+                    </td>
+                    <td>
+                        <input type="text" name="id_lng" id="id_lng" class="txtTable" disabled>
+                        <input type="hidden" name="id_lng" id="id_lng">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Casa/Departamento: </span>
+
+                    </td>
+                    <td>
+                        <input type="text" name="txtCasa" id="txtCasa" class="txtTable">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Nota : </span>
+
+                    </td>
+                    <td>
+                        <input type="text" name="txtdesc" id="txtdesc" class="txtTable">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Agregar dirección">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        </div>
+        <div id="mapa" class="capas"></div>
+        <div id="direcciones" class="capas">
+            <table>
+                <th>
+                    Direccion
+                </th>
+                <th>
+                    Accion
+                </th>
+                {% for dire in direcciones%}
+                <tr>
+                    <td>
+                        {{dire.description}}
+                    </td>
+                    <td>
+                        <a href="#">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{google_api_key}}&callback=initMap&libraries=&v=weekly" async></script>
+
+
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}
