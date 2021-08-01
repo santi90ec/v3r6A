@@ -1,0 +1,76 @@
+{% extends 'adminMasterpage.html' %}
+{% load static %}
+
+{% block extend_head %}
+{% endblock %}
+
+{% block container %} 
+<div class="col-md-12">
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header">
+            <h4 class="card-title">Edicion de Producto / Inventario</h4>
+        </div>
+        <div class="card-body table-full-width table responsive">
+            <form action="/admin/edit/{{product.idProduct.id}}" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="prod">Nombre del Producto</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="prod" name="prod" value="{{product.idProduct.description}}">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="des">Descripcion</label>
+                            </td>
+                            <td>
+                                <input type="text" name="desc" id="des" value="{{product.description}}" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class=" form-group">
+                            <td>
+                                <label for="categoria">Seleccione Categoria</label>
+                            </td>
+                            <td>
+                                <select name="categoria" id="categoria"  class="form-control">
+                                    
+                                    {% for cate in categoria %}
+                                    <option value="{{cate.id}}" {% if cate.id == product.idProduct.category.id %}selected {% endif %}>{{cate.category}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="qty">Cantidad: </label>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="qty" id="qty" value="{{product.quantity}}">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Edit Producto" class="btn btn-secondary btn-sm">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}

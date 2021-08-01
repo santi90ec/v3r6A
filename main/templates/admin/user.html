@@ -1,0 +1,135 @@
+
+{% extends 'adminMasterpage.html' %}
+{% load static %}
+
+{% block extend_head %}
+{% endblock %}
+{% block container %} 
+<div class="col-md-12">
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header">
+            <h4 class="card-title">Creación de Usuarios</h4>
+        </div>
+        <div class="card-body table-full-width table responsive">
+            <form action="/admin/user/create" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="firstName">First Name</label>
+                            </td>
+                            <td>
+                                <input type="text" name="firstName" id="firstName" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="lastName">Last Name</label>
+                            </td>
+                            <td>
+                                <input type="text" name="lastName" id="lastName" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="email">Email</label>
+                            </td>
+                            <td>
+                                <input type="email" name="email" id="email" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="pass">Password</label>
+                            </td>
+                            <td>
+                                <input type="password" name="pass" id="pass" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="confirmPass">Confirm Password</label>
+                            </td>
+                            <td>
+                                <input type="password" name="confirmPass" id="confirmPass" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class=" form-group">
+                            <td>
+                                <label for="perfilId">Seleccione Perfil</label>
+                            </td>
+                            <td>
+                                <select name="perfilId" id="perfilId"  class="form-control">
+                                    {% for perfil in profile %}
+                                    <option value="{{perfil.id}}">{{perfil.profileName}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Crear Usuario" class="btn btn-secondary btn-sm">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header">
+            <h4 class="card-title">Administración de Usuarios</h4>
+        </div>
+        <div class="card-body table-full-width table responsive">
+            <table>
+                <th>
+                    <span>Nombre Usuario</span>
+                </th>
+                <th>
+                    <span>Email</span>
+                </th>
+                <th>
+                    <span>Perfil</span>
+                </th>
+                <th>
+                    <span>Accion</span>
+                </th>
+                {% for user in users %}
+                <tr>
+                    <td>
+                        {{user.firstName}} {{user.lastName}}
+                    </td>
+                    <td>
+                        {{user.email}}
+                    </td>
+                    <td>
+                        {{user.profileId.profileName}}
+                    </td>
+                    <td>
+                        <a href="/admin/user/{{user.id}}"><span>Edit</a> | 
+                        <a href="#"> Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+</div>
+
+
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}

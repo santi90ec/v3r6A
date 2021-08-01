@@ -42,8 +42,10 @@ function initMap()
         {   
             var markerCoords = marker.getPosition();
             console.log(markerCoords.lat()+ ' ' +markerCoords.lng());
-            $('#id_lat').val( markerCoords.lat());
-            $('#id_lng').val( markerCoords.lng());
+            document.getElementById('id_lat').value=markerCoords.lat();
+            document.getElementById('id_lng').value=markerCoords.lng();
+            document.getElementById('id_lng').submit();
+            
 
         }
     } 

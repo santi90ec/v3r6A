@@ -23,7 +23,7 @@
                     </td>
                     <td>
                         <input type="text" name="id_lat" id="id_lat" class="txtTable" disabled>
-                        <input type="hidden" name="id_lat" id="id_lat">
+                        <!-- <input type="hidden" name="id_lat" id="id_lat"> -->
                     </td>
                 </tr>
                 <tr>
@@ -32,7 +32,7 @@
                     </td>
                     <td>
                         <input type="text" name="id_lng" id="id_lng" class="txtTable" disabled>
-                        <input type="hidden" name="id_lng" id="id_lng">
+                        <!-- <input type="hidden" name="id_lng" id="id_lng"> -->
                     </td>
                 </tr>
                 <tr>
@@ -83,9 +83,10 @@
             </table>
         </div>
         <script src="https://maps.googleapis.com/maps/api/js?key={{google_api_key}}&callback=initMap&libraries=&v=weekly" async></script>
-
+        <script type="text/javascript" src="{% static 'main/js/google.js' %}"></script> 
 
 {% endblock%}
 {% block extend_footer %}
+<!-- custom js-->
 
 {% endblock %}

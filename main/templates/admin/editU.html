@@ -1,0 +1,87 @@
+
+{% extends 'adminMasterpage.html' %}
+{% load static %}
+
+{% block extend_head %}
+{% endblock %}
+{% block container %} 
+<div class="col-md-12">
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header">
+            <h4 class="card-title">Edición Usuario {{user.firstName}}</h4>
+        </div>
+        <div class="card-body table-full-width table responsive">
+            <form action="/admin/user/{{user.id}}" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="firstName">First Name</label>
+                            </td>
+                            <td>
+                                <input type="text" name="firstName" id="firstName" class="form-control" value="{{user.firstName}}">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="lastName">Last Name</label>
+                            </td>
+                            <td>
+                                <input type="text" name="lastName" id="lastName" class="form-control" value="{{user.lastName}}">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="email">Email</label>
+                            </td>
+                            <td>
+                                <input type="email" name="email" id="email" class="form-control" value="{{user.email}}">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="pass">Password</label>
+                            </td>
+                            <td>
+                                <input type="password" name="pass" id="pass" class="form-control" value="{{user.password}}">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class=" form-group">
+                            <td>
+                                <label for="perfilId">Seleccione Perfil</label>
+                            </td>
+                            <td>
+                                <select name="perfilId" id="perfilId"  class="form-control">
+                                    {% for perfil in profile %}
+                                    <option value="{{perfil.id}}" {% if perfil.id == user.profileId.id %} selected {% endif %}>{{perfil.profileName}}</option>
+                                    {% endfor %}
+                                    
+
+
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Editar Usuario" class="btn btn-secondary btn-sm">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}

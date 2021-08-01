@@ -45,4 +45,24 @@ class Address(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, related_name="user_address", on_delete=models.CASCADE)
-    
+class ProductCategory(models.Model):
+    category = models.CharField(max_length=45)
+    createdAt=models.DateTimeField(auto_now_add=True)
+    updatedAt=models.DateTimeField(auto_now=True)
+class Product(models.Model):
+    description = models.CharField(max_length=100)
+    createdAt=models.DateTimeField(auto_now_add=True)
+    updatedAt=models.DateTimeField(auto_now=True)
+    category= models.ForeignKey(ProductCategory, related_name="product_category", on_delete=models.CASCADE)
+    unitPrice=models.DecimalField(max_digits=10,decimal_places=2, default=0.00)
+class Warehouse(models.Model):
+    description = models.CharField(max_length=45)
+    idProduct= models.ForeignKey(Product, related_name="product_inventory", on_delete=models.CASCADE)
+    createdAt=models.DateTimeField(auto_now_add=True)
+    quantity=models.SmallIntegerField()
+    updatedAt=models.DateTimeField(auto_now=True)
+class SalesOrder(models.Model):
+    status = models.CharField(max_length=1)
+    idUser = models.ForeignKey(User, related_name="user_order", on_delete=models.CASCADE)
+    createdAt=models.DateTimeField(auto_now_add=True)
+    updatedAt=models.DateTimeField(auto_now=True)

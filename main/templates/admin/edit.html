@@ -1,0 +1,115 @@
+
+{% extends 'adminMasterpage.html' %}
+{% load static %}
+
+{% block extend_head %}
+{% endblock %}
+
+{% block container %} 
+<div class="col-md-12">
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header">
+            <h4 class="card-title">Creación de Productos</h4>
+        </div>
+        <div class="card-body table-full-width table responsive">
+            <form action="/admin/edit/create" method="post">
+                <table>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="producto">Nombre del Producto</label>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="producto" id="producto">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="des">Descripcion</label>
+                            </td>
+                            <td>
+                                <input type="text" name="desc" id="desc" class="form-control">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class=" form-group">
+                            {% csrf_token %}
+                            <td>
+                                <label for="categoria">Seleccione Categoria</label>
+                            </td>
+                            <td>
+                                <select name="categoria" id="categoria"  class="form-control">
+                                    {% for cate in categoria %}
+                                    <option value="{{cate.id}}">{{cate.category}}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="qty">Cantidad: </label>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="qty" id="qty">
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Crear Producto" class="btn btn-secondary btn-sm">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card strpied-tabled-with-hover">
+        <div class="card-header">
+            <h4 class="card-title">Inventario Actual de productos</h4>
+        </div>
+        <div class="card-body table-full-width table responsive">
+            <table>
+                <th>
+                    <span>Nombre Producto</span>
+                </th>
+                <th>
+                    <span>Descripcion Producto</span>
+                </th>
+                <th>
+                    <span>Stock</span>
+                </th>
+                <th>
+                    <span>Accion</span>
+                </th>
+                {% for product in products %}
+                <tr>
+                    <td>
+                        {{product.idProduct.description}}
+                    </td>
+                    <td>
+                        {{product.description}}
+                    </td>
+                    <td>
+                        {{product.quantity}}
+                    </td>
+                    <td>
+                        <a href="/admin/edit/{{product.idProduct.id}}"><span>Edit</a> | 
+                        <a href="#"> Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+</div>
+
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}
