@@ -1,8 +1,14 @@
-
 {% extends 'adminMasterpage.html' %}
 {% load static %}
-
 {% block extend_head %}
+{% if orders %}
+    <li class="nav-item">
+        <a href="#" class="nav-link" data-toggle="dropdown">
+            <i class="nc-icon nc-cart-simple"></i>
+            <span class="notification"> </span>
+        </a>
+    </li>
+{% endif %}
 {% endblock %}
 
 {% block container %} 

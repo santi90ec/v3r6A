@@ -1,13 +1,13 @@
-
 {% extends 'masterpage.html' %}
 {% load static %}
-<!-- font awesome style -->
-
-
 {% block extend_head %}
-<script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
-
-
+{% if car %}
+    <a href="/home/cart" class="menu" role="button"  aria-haspopup="true" aria-expanded="false" data-display="static">
+        <i class="icon-shopping-cart"></i>
+        <span class="cart-count">{{car.cart_product.all|length}}</span>
+    </a>
+{% endif %}
+<link rel="stylesheet" href="{% static 'main/css/icon.css' %}">
 {% endblock %}
 
 {% block container %} 
@@ -31,19 +31,19 @@
                         <div class="product">
                             <figure class="product-media">
                                 <a href="#">
-                                    <img src="{% static 'main/assets/images/products/product-1.jpg' %}" alt="Product image" class="product-image">
+                                    <img src="{% static 'main/assets/images/face-1.jpg' %}" alt="Product image" class="product-image">
                                 </a>
                                 <div class="product-action action-icon-top">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <a href="/home/cart/{{product.product.id}}" class="btn-product btn-cart"><span>add to cart</span></a>
                                 </div><!-- End .product-action -->
                             </figure><!-- End .product-media -->
                             <div class="product-body">
                                 <div class="product-cat">
-                                    {{product.idProduct.category.category}} 
+                                    {{product.product.category.category}} 
                                 </div><!-- End .product-cat -->
-                                <h3 class="product-title">{{product.idProduct.description}} </h3><!-- End .product-title -->
+                                <h3 class="product-title">{{product.product.description}} </h3><!-- End .product-title -->
                                 <div class="product-price">
-                                    {{product.idProduct.unitPrice}} 
+                                    {{product.product.unitPrice}} 
                                 </div><!-- End .product-price -->
                             </div><!-- End .product-body -->
                         </div><!-- End .product -->

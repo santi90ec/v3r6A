@@ -1,0 +1,93 @@
+{% extends 'adminMasterpage.html' %}
+{% load static %}
+{% block extend_head %}
+{% if orders %}
+    <li class="nav-item">
+        <a href="#" class="nav-link" data-toggle="dropdown">
+            <i class="nc-icon nc-cart-simple"></i>
+            <span class="notification"> </span>
+        </a>
+    </li>
+{% endif %}
+{% endblock %}
+
+{% block container %} 
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card striped-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">Order {{order.id}}</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th> Producto  </th>
+                            <th> Cantidad</th>
+                            <th> Valor Unitario </th>
+                            <th> Valor Total Item</th>
+                            <th> Accion </th>
+                        </tr>
+                        {% for product in order.cart_product.all  %}
+                        <tr>
+                            <td>
+                                {{product.product.description}}
+                            </td>
+                            <td>
+                                {{product.quantity}}
+                            </td>
+                            <td>
+                                {{product.product.unitPrice}}
+                            </td>
+                            <td>
+                                {{product.total_price}}
+                            </td>
+                         
+                            <td>
+                                <a href="#" class="btn btn-danger">Delete Product </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="container">
+                <div class="card striped-tabled-with-hover">
+                    <div class="card-header">
+                        <h4 class="card-title">Order #:  {{order.id}}</h4>
+                    </div>
+                    <div class="card-body ">
+                        <ul>
+                            <li>
+                                Order Total Amount: {{order.total}}$
+                            </li>
+                            <li>
+                                Order Status: {{order.status}}
+                            </li>
+                            <li>
+                                Coordenadas: 
+                                    <ul>
+                                        <li>
+                                            Longuitud {{order.address.lon}}
+                                        </li>
+                                        <li>
+                                            Latitud {{order.address.lat}}
+                                        </li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}

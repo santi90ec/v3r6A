@@ -1,3 +1,4 @@
+from django.contrib.messages.api import error
 from django.db import models
 import re
 
@@ -16,13 +17,35 @@ class UserManager(models.Manager):
         if (len(postData['password'])<8)  :
             errors['pass']="Password not strong enough"
         if (len(postData['confirpassword'])<8 or (postData['password']!=postData['confirpassword'])):
-            errors['confirpassword']="La contraseña es invalido o no coinciden"
+            errors['confirpassword']="Passwords did not match"
+        return errors
+    def userAdminValidator(self,postData):
+        errors={}
+        if len(postData['firstName'])<2 or len(postData['lastName'])<2 or len(postData['email'])<2 or len(postData['pass'])<2:
+            errors['Empty']="None field must be empty"
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['emailValido']="Invalid Mail"
+        if (len(postData['pass'])<8)  :
+            errors['pass']="Password not strong enough"
         return errors
     def loginValidator(self,postData):
         errors={}
         if len(postData['usrEmail'])<2 or len(postData['usrPass'])<2:
-            errors['login']="Username / Mail can not be empty"
+            errors['login']="Username / Mail Invalid"
         return errors
+class ProductManager(models.Manager):
+    def productManager(self,postData):
+        errors={}
+        if len(postData['producto'])<3:
+            errors['prod']="Product at least 3 characteres"
+        if len(postData['desc'])<3:
+            errors['prod']="Description at least 3 characteres"
+        if len(postData['qty'])<1:
+            errors['prod']="Product at least 3 characteres"
+class AddressManager(models.Manager):
+    def addressValidator(self,postData):
+        errors={}
+
 # Create your models here.
 class Profile(models.Model):
     profileName=models.CharField(max_length=40)
@@ -57,12 +80,20 @@ class Product(models.Model):
     unitPrice=models.DecimalField(max_digits=10,decimal_places=2, default=0.00)
 class Warehouse(models.Model):
     description = models.CharField(max_length=45)
-    idProduct= models.ForeignKey(Product, related_name="product_inventory", on_delete=models.CASCADE)
+    product= models.ForeignKey(Product, related_name="product_inventory", on_delete=models.CASCADE)
     createdAt=models.DateTimeField(auto_now_add=True)
     quantity=models.SmallIntegerField()
     updatedAt=models.DateTimeField(auto_now=True)
-class SalesOrder(models.Model):
-    status = models.CharField(max_length=1)
-    idUser = models.ForeignKey(User, related_name="user_order", on_delete=models.CASCADE)
+class Cart(models.Model):
+    user = models.ForeignKey(User, related_name="user_order", on_delete=models.CASCADE)
     createdAt=models.DateTimeField(auto_now_add=True)
     updatedAt=models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=2)
+    total = models.DecimalField(max_digits=1000,decimal_places=2,default=0.00)
+    address = models.ForeignKey(Address, related_name="cart_address", on_delete=models.CASCADE, null=True) 
+
+class CartProduct(models.Model):
+    cart = models.ForeignKey(Cart, related_name="cart_product", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="product2cart", on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    total_price = models.DecimalField(max_digits=1000,decimal_places=2,default=0.0)

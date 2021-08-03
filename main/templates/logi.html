@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Basic -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- Site Metas -->
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />      
+        <title>V3RG@</title>
+        <!-- bootstrap core css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'main/css/bootstrap.css' %}" />      
+        <link href="{% static 'admin/css/ligth-bootstrap.css' %}" rel="stylesheet" />
+        
+            <!-- Plugins CSS File -->
+        <link rel="stylesheet" href="{% static 'main/assets/css/bootstrap.min.css' %}">
+        <!-- Main CSS File -->
+        <link rel="stylesheet" href="{% static 'main/assets/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'main/assets/css/styleMaster.css' %}">
+        
+    </head>
+    <body>
+        <div class="page-wrapper">
+
+            <main class="main">
+                <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17">
+                        <div class="form-box">
+                            <div class="container">
+                                <div class="container align-self-start">
+                                    {% if messages %}
+                                    <ul class="messages" id="errMensaje">    
+                                        {% for message in messages %}    
+                                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                        
+                            </div >
+                            <div class="form-tab">
+                                <ul class="nav nav-pills nav-fill" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Register</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                                        <form action="/login" method="POST">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="usrEmail">Email address *</label>
+                                                <input type="text" class="form-control" id="usrEmail" name="usrEmail" required>
+                                            </div><!-- End .form-group -->
+
+                                            <div class="form-group">
+                                                <label for="usrPass">Password *</label>
+                                                <input type="password" class="form-control" id="usrPass" name="usrPass" required>
+                                            </div><!-- End .form-group -->
+
+                                            <div class="form-footer">
+                                                <button type="submit" class="btn btn-outline-primary-2">
+                                                    <span>LOG IN</span>
+                                                    <i class="icon-long-arrow-right"></i>
+                                                </button>
+                                            </div><!-- End .form-footer -->
+                                        </form>
+                                        
+                                    </div><!-- .End .tab-pane -->
+                                    <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+                                        <form action="/register" method="POST">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="firstName"> First Name</label>
+                                                <input type="text" name="firstName" id="firstName" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lastName">Last Name</label>
+                                                <input type="text" name="lastName" id="lastName" class="form-control" required>
+                                                
+                                            </div>
+                                            <div class="form-group">    
+                                                <label for="email">Your email address *</label>
+                                                <input type="email" class="form-control" id="email" name="email" required>
+                                            </div><!-- End .form-group -->
+
+                                            <div class="form-group">
+                                                <label for="password">Password *</label>
+                                                <input type="password" class="form-control" id="password" name="password" required>
+                                            </div><!-- End .form-group -->
+                                            <div class="form-group">
+                                                <label for="password">Confirm Password *</label>
+                                                <input type="password" class="form-control" id="confirpassword" name="confirpassword" required>
+                                            </div><!-- End .form-group -->
+
+                                            <div class="form-footer">
+                                                <button type="submit" class="btn btn-outline-primary-2">
+                                                    <span>SIGN UP</span>
+                                                    <i class="icon-long-arrow-right"></i>
+                                                </button>
+                                            </div><!-- End .form-footer -->
+                                        </form>
+                                        
+                                    </div><!-- .End .tab-pane -->
+                                </div><!-- End .tab-content -->
+                            </div><!-- End .form-tab -->
+                        </div><!-- End .form-box -->  
+                        </div>        
+                    </main><!-- End .main -->
+                </div>
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- footer section -->
+    <!-- Plugins JS File -->
+    <script src="{% static 'main/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/superfish.min.js' %}"></script>
+    <script src="{% static 'main/assets/js/owl.carousel.min.js' %}"></script>
+    <!-- Main JS File -->
+    <script src="{% static 'main/assets/js/main.js' %}"></script>
+    
+    <script src="{% static 'admin/js/plugins/bootstrap-switch.js' %}"></script>
+
+    <!--  Chartist Plugin  -->
+    <script src="{% static 'admin/js/plugins/chartist.min.js' %}"></script>
+    <!--  Notifications Plugin    -->
+    <script src="{% static 'admin/js/plugins/bootstrap-notify.js' %}"></script>  -->    
+
+    </body>
+</html>

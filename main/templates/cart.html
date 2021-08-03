@@ -1,0 +1,97 @@
+{% extends 'masterpage.html' %}
+{% load static %}
+{% block extend_head %}
+{% if car %}
+    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+        <i class="icon-shopping-cart"></i>
+        <span class="cart-count">{{car.cart_product.all|length}}</span>
+    </a>
+{% endif %}
+{% endblock %}
+
+
+{% block container %} 
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <table class="table table-cart table-mobile">
+                    <thead>
+                        <tr>
+                            <th>
+                                Product
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Price Product
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in car.cart_product.all%}
+                        <tr>
+                            <td class="product-col">
+                                <h3 class="product-title">
+                                    {{producto.product.description}}
+                                </h3>
+                            </td>
+                            <td class="price-col">
+                                {{producto.quantity}}
+                            </td>
+                            <td class="total-col">
+                                {{producto.total_price}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                Total
+                            </td>
+
+                            <td></td><td>{{car.total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="cart-bottom">
+                    <form action="/home/cart/order" method="post">
+                        {% csrf_token %}
+                        <a href="/home/profile" class="btn btn-dark">Agregar Dirección</a>
+                        {% if address and car.status == 'O' %}
+                    
+                        <select name="dire" id="dire"  class="btn btn-secondary dropdown-toggle" >    
+                            {% for dire in address %}
+                            <option value="{{dire.id}}" >{{dire.description}}</option>
+                            {% endfor %}
+                        </select>
+                        <a href="/home/cart/delete" class="btn btn-danger">Delete Order</a>
+                        <input type="submit" value="Crear Orden" class="btn btn-success">
+                        {% else %}                    
+                        <a href="/home/cart/delete" class="btn btn-danger">Delete Order</a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                {% if car.status == 'X' %}
+                <h4>
+                    Tu pedido Fue cancelado
+                </h4>
+                {% endif %}
+                {% if car.status == 'S' %}
+                <h4>
+                    Tu pedido está en camino
+                </h4>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+{% endblock %}

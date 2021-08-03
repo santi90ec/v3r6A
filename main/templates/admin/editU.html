@@ -3,12 +3,29 @@
 {% load static %}
 
 {% block extend_head %}
+{% if orders %}
+    <li class="nav-item">
+        <a href="#" class="nav-link" data-toggle="dropdown">
+            <i class="nc-icon nc-cart-simple"></i>
+            <span class="notification"> </span>
+        </a>
+    </li>
+{% endif %}
 {% endblock %}
 {% block container %} 
 <div class="col-md-12">
     <div class="card strpied-tabled-with-hover">
         <div class="card-header">
             <h4 class="card-title">Edición Usuario {{user.firstName}}</h4>
+        </div>
+        <div class="container align-self-start">
+            {% if messages %}
+            <ul class="messages" id="errMensaje">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
         <div class="card-body table-full-width table responsive">
             <form action="/admin/user/{{user.id}}" method="post">
@@ -64,9 +81,6 @@
                                     {% for perfil in profile %}
                                     <option value="{{perfil.id}}" {% if perfil.id == user.profileId.id %} selected {% endif %}>{{perfil.profileName}}</option>
                                     {% endfor %}
-                                    
-
-
                                 </select>
                             </td>
                         </div>

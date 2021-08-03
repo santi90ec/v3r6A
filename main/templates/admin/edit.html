@@ -3,6 +3,14 @@
 {% load static %}
 
 {% block extend_head %}
+{% if orders %}
+    <li class="nav-item">
+        <a href="#" class="nav-link" data-toggle="dropdown">
+            <i class="nc-icon nc-cart-simple"></i>
+            <span class="notification"> </span>
+        </a>
+    </li>
+{% endif %}
 {% endblock %}
 
 {% block container %} 
@@ -10,6 +18,15 @@
     <div class="card strpied-tabled-with-hover">
         <div class="card-header">
             <h4 class="card-title">Creación de Productos</h4>
+        </div>
+        <div class="container align-self-start">
+            {% if messages %}
+            <ul class="messages" id="errMensaje">    
+                {% for message in messages %}    
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
         <div class="card-body table-full-width table responsive">
             <form action="/admin/edit/create" method="post">
@@ -60,6 +77,17 @@
                         </div>
                     </tr>
                     <tr>
+                        <div class="form-group">
+                            <td>
+                                <label for="price">Precio: </label>
+                            </td>
+                            <td>
+                                <input class="form-control" name="price" id="price" pattern="^\d*(\.\d{0,2})?$" />
+                                
+                            </td>
+                        </div>
+                    </tr>
+                    <tr>
                         <td>
                             <input type="submit" value="Crear Producto" class="btn btn-secondary btn-sm">
                         </td>
@@ -91,7 +119,7 @@
                 {% for product in products %}
                 <tr>
                     <td>
-                        {{product.idProduct.description}}
+                        {{product.product.description}}
                     </td>
                     <td>
                         {{product.description}}
@@ -100,8 +128,8 @@
                         {{product.quantity}}
                     </td>
                     <td>
-                        <a href="/admin/edit/{{product.idProduct.id}}"><span>Edit</a> | 
-                        <a href="#"> Delete</a>
+                        <a href="/admin/edit/{{product.product.id}}"><span>Edit</a> | 
+                        <a href="/admin/edit/{{product.product.id}}/delete"> Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -111,5 +139,5 @@
 
 {% endblock%}
 {% block extend_footer %}
-
+<script src="{% static 'admin/js/product.js' %}"></script>
 {% endblock %}

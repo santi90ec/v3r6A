@@ -1,0 +1,99 @@
+{% extends 'adminMasterpage.html' %}
+{% load static %}
+{% block extend_head %}
+{% if orders %}
+    <li class="nav-item">
+        <a href="#" class="nav-link" data-toggle="dropdown">
+            <i class="nc-icon nc-cart-simple"></i>
+            <span class="notification"> </span>
+        </a>
+    </li>
+{% endif %}
+{% endblock %}
+
+{% block container %} 
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card striped-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">New Orders!</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th> Orden  </th>
+                            <th> Cliente</th>
+                            <th> Status </th>
+                            <th> Accion </th>
+                        </tr>
+                        {% for order in orders  %}
+                        <tr>
+                            <td>
+                                {{order.id}}
+                            </td>
+                            <td>
+                                {{order.user.firstName}} {{order.user.lastName}}
+                            </td>
+                            <td>
+                                {{order.status}}
+                            </td>
+                            <td>
+                                <a href="/admin/delivery/{{order.id}}" class="btn btn-info">View Order</a>
+                                <a href="/admin/delivery/{{order.id}}/ship" class="btn btn-success">Deliver Order</a>
+                                <a href="/admin/delivery/{{order.id}}/cancel" class="btn btn-danger">Cancel Order</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="col-md-12">
+            <div class="card striped-tabled-with-hover">
+                <div class="card-header">
+                    <h4 class="card-title">All Orders</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th> Orden  </th>
+                            <th> Cliente</th>
+                            <th> Status </th>
+                            <th> Date </th>
+                            <th> Accion </th>
+                        </tr>
+                        {% for order in allOrders  %}
+                        <tr>
+                            <td>
+                                {{order.id}}
+                            </td>
+                            <td>
+                                {{order.user.firstName}} {{order.user.lastName}}
+                            </td>
+                            <td>
+                                {{order.status}}
+                            </td>
+                            <td>
+                                {{order.createdAt}}
+                            </td>
+                            <td>
+                                <a href="/admin/delivery/{{order.id}}" class="btn btn-info">View Order</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+    </div>
+
+</div>
+
+{% endblock%}
+{% block extend_footer %}
+
+{% endblock %}
